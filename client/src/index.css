@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-prata: "Prata";
+  --font-outfit: "Outfit";
+
+  --animate-ping-once: ping 1s ease;
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+
+body {
+  font-family: var(--font-outfit);
+}
