@@ -24,7 +24,8 @@ const Navbar = () => {
   }, [open])
 
   const itemCount = useAppSelector(getCartItemsCount)
-  console.log(itemCount)
+
+  console.log("rendering navbar")
 
   return (
     <nav className="w-full h-full">
@@ -56,7 +57,7 @@ const Navbar = () => {
               <li key={1} className="h-10 aspect-square flex items-center justify-center cursor-pointer rounded-full text-[#323232] hover:bg-slate-200">
                 <Link to={"/cart"} className={`relative `}>
                   <Bag />
-                  <span className={`absolute text-xs text-white flex items-center justify-center rounded-full bottom-[-5px] ${itemCount > 0 && "animate-ping-once"} right-[-10px] aspect-square h-4 bg-black`}>{itemCount}</span>
+                  <span className={`absolute text-xs text-white flex items-center justify-center rounded-full bottom-[-5px] animate-ping-once right-[-10px] aspect-square h-4 bg-black`}>{itemCount}</span>
                 </Link>
               </li>
               <li key={2} className="relative h-10 aspect-square flex items-center justify-center cursor-pointer rounded-full text-[#323232] hover:bg-slate-200">

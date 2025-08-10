@@ -3,24 +3,10 @@ import image from "../assets/pngs/p_img4.png"
 import { useAppDispatch } from "../state/store"
 import { addCartItem } from "../state/cartSlice"
 import { useParams } from "react-router-dom"
+import { useState } from "react"
 
 const ProductDetail = () => {
   const { id } = useParams()
-  const dispatch = useAppDispatch()
-
-  const addToCart = () => {
-    const cartItem: CartItem = {
-      id: product.id,
-      img: product.img[0],
-      name: product.name,
-      price: product.price,
-      amount: 1,
-      size: "L",
-    }
-
-    dispatch(addCartItem(cartItem))
-  }
-
 
   // use id to fetch product from server
   const product: ProductDetail = {
@@ -32,6 +18,24 @@ const ProductDetail = () => {
     desc: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment."
   }
 
+  const [size, setSize] = useState<Size>(product.sizes[0])
+
+  const dispatch = useAppDispatch()
+
+  const addToCart = () => {
+    const cartItem: CartItem = {
+      id: product.id,
+      cartId: product.id + "_" + size,
+      img: product.img[0],
+      name: product.name,
+      price: product.price,
+      amount: 1,
+      size: size,
+    }
+
+    dispatch(addCartItem(cartItem))
+  }
+
   return (
     <>
       <section className="w-full flex flex-col justify-center md:flex-row gap-6">
@@ -39,7 +43,7 @@ const ProductDetail = () => {
           <img src={image} alt={image} className="col-span-3 col-end-5 row-span-4 h-full object-cover" />
           {
             product.img.map((_, i) => (
-              <img src={image} alt={image} className={`${i == 1 && "row-start-1"} w-full h-full object-contain`} />
+              <img key={i} src={image} alt={image} className={`${i == 1 && "row-start-1"} w-full h-full object-contain`} />
             ))
           }
         </div>
@@ -47,7 +51,7 @@ const ProductDetail = () => {
         <div className="flex flex-col max-h-fit gap-4">
           <h2 className="text-[34px] font-medium text-[#3D3D3D]">{product.name}</h2>
           <div className="flex gap-2">
-            {[...Array(5)].map(i => (
+            {[...Array(5)].map((_, i) => (
               <Star key={i} className="h-5 w-5" fill="#000000" />
             ))}
           </div>
@@ -59,13 +63,13 @@ const ProductDetail = () => {
             <ul className="flex gap-2">
               {
                 product.sizes.map((sz, i) => (
-                  <li key={i} className="w-10 h-10 flex items-center justify-center bg-[#FBFBFB] border-1">{sz}</li>
+                  <li key={i} className={`w-10 h-10 flex items-center justify-center cursor-pointer bg-[#FBFBFB] border-1 border-[#EBEBEB] ${(sz === size) && "border-[#FF8551]"} `} onClick={() => setSize(sz)}>{sz}</li>
                 ))
               }
             </ul>
           </div>
 
-          <button className="text-md uppercase bg-black text-white py-2 w-full max-w-[150px]" onClick={addToCart}>Add to Cart</button>
+          <button className="text-md uppercase bg-black hover:scale-105 transition-transform cursor-pointer text-white py-2 w-full max-w-[150px] active:scale-100" onClick={addToCart}>Add to Cart</button>
           <hr />
           <p className="text-md text-[#555555]">
             100% Original product. <br />

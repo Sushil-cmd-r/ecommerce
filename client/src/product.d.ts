@@ -24,6 +24,7 @@ type ProductDetail = {
 
 type CartItem = {
   id: string,
+  cartId: string,
   img: string,
   name: string,
   price: number,
