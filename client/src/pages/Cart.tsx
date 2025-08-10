@@ -22,14 +22,13 @@ const Cart = () => {
           )
         }
 
+        {items.length != 0 && (
+          <div className="flex flex-col">
+            <CartTotal />
+            <Link to={"/checkout"} className="px-4 py-2 col-span-2 max-w-[230px] uppercase ml-auto bg-black text-white">Proceed to checkout</Link>
+          </div>
+        )}
       </section>
-
-      {items.length != 0 && (
-        <div className="flex flex-col">
-          <CartTotal />
-          <Link to={"/checkout"} className="px-4 py-2 col-span-2 max-w-[230px] uppercase ml-auto bg-black text-white">Proceed to checkout</Link>
-        </div>
-      )}
 
     </main>
   )
